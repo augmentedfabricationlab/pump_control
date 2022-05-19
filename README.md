@@ -1,8 +1,6 @@
-# concrete_pump_control
+# Concrete Pump Control
 # M-Tec Duo-Mix Connect
-============================================================
-concrete_pump_control: Concrete Pump Control
-============================================================
+
 
 .. start-badges
 
@@ -91,4 +89,4 @@ Releasing this project
 Credits
 -------------
 
-This package was created by Julia Fleckenstein <julia.fleckenstein@tum.de> at `@augmentedfabricationlab <https://github.com/augmentedfabricationlab>`_
+This package was created by the `@augmentedfabricationlab <https://github.com/augmentedfabricationlab>`
