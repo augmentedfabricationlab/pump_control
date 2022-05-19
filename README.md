@@ -26,7 +26,7 @@ Main features
 * feature
 * more features
 
-**extruder_control** runs on Python x.x and x.x.
+**concrete_pump_control** runs on Python x.x and x.x.
 
 
 Documentation
