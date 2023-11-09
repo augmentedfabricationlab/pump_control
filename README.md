@@ -1,23 +1,6 @@
-# Concrete Pump Control
-# M-Tec Duo-Mix Connect
-
-
-.. start-badges
-
-.. image:: https://img.shields.io/badge/License-MIT-blue.svg
-    :target: https://github.com/augmentedfabricationlab/concrete_pump_control/blob/master/LICENSE
-    :alt: License MIT
-
-.. image:: https://travis-ci.org/augmentedfabricationlab/concrete_pump_control.svg?branch=master
-    :target: https://travis-ci.org/augmentedfabricationlab/concrete_pump_control
-    :alt: Travis CI
-
-.. end-badges
-
-.. Write project description
+# Pump Control
 
 **A short description of the project** ...
-
 
 Main features
 -------------
@@ -28,20 +11,14 @@ Main features
 
 **concrete_pump_control** runs on Python x.x and x.x.
 
-
-Documentation
--------------
-
-.. Explain how to access documentation: API, examples, etc.
-
-..
-.. optional sections:
-
 Requirements
 ------------
 
 .. Write requirements instructions here
 
+## M-Tec P20 Connect
+
+## M-Tec Duo-Mix Connect
 
 Installation
 ------------
