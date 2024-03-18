@@ -17,6 +17,13 @@ class PumpClient():
 
         self.connected = False
 
+    def __enter__(cls):
+        cls.connect()
+        return cls
+
+    def __exit__(cls, typ, val, tb):
+        cls.close()
+
     def connect(self):
         if not hasattr(self, "client"):
             self.client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
