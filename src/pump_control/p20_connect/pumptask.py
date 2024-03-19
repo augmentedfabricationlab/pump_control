@@ -15,7 +15,7 @@ class PumpTask(Task):
         with PumpClient(self.ip, self.port) as pc:
             pc.connect_pump(self.com_port)
             pc.set_pump_speed(self.speed)
-            if self.state == 0:
+            if self.state == 1:
                 pc.start_pump()
             else:
                 pc.stop_pump()
