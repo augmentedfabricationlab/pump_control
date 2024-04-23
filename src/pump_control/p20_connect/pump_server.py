@@ -27,16 +27,14 @@ class PumpHandler(ss.BaseRequestHandler):
         # def handle(self):
         # print("Connected to client at {}".format(self.client_address[0]))
         while True:
-            try:
-                data = self.request.recv(1024)
-                msg_type, value = struct.unpack_from("ii", data)
-                print("Message of type {} received with value {}".format(msg_type, value))
-                if msg_type in [MSG_CONNECT, MSG_STATE, MSG_SPEED] and value is not None:
-                    self.server.command(msg_type, value)
-                    time.sleep(0.1)
-            except socket.error as e:
-                print(e)
+            data = self.request.recv(1024)
+            if not data:
                 break
+            msg_type, value = struct.unpack_from("ii", data)
+            print("Message of type {} received with value {}".format(msg_type, value))
+            if msg_type in [MSG_CONNECT, MSG_STATE, MSG_SPEED] and value is not None:
+                self.server.command(msg_type, value)
+                time.sleep(0.1)
         print("Client disconnected")
         self.request.close()   
 
@@ -80,6 +78,9 @@ class PumpController(ss.TCPServer):
     def set_connect(self, value):
         print("Attempting connection to serial device at COM{}".format(value))
         self.pump.serial_port = "COM{}".format(int(value))
+        if hasattr(self.pump, "serial"):
+            print("Connection still available")
+            return
         try:
             self.pump.connect()
             print("Connection established!")
@@ -92,9 +93,13 @@ class PumpController(ss.TCPServer):
             # stop the pump
             self.pump.speed = 0
             self.pump_state = 0
+            if hasattr(self.pump.settings_keepAlive_loop, 'cancel') and callable(self.pump.settings_keepAlive_loop.cancel):
+                self.pump.settings_keepAlive_loop.cancel()
+            # self.pump.settings_keepAlive_active = False
             print("Pump stopped")
         if value == 1:
             # run the pump at the last known speed setting
+            # self.pump.settings_keepAlive_active = True
             self.pump_state = 1
             self.pump.speed = int(self.pump_speed)
             print("Pump resumed, running at speed: {} Hz".format(self.pump_speed/100))
@@ -132,6 +137,7 @@ if __name__ == "__main__":
                 pass
         except KeyboardInterrupt:
             print("Closing the controller... Please wait")
+            pc.stop()
 
             
             

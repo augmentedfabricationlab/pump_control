@@ -47,7 +47,7 @@ class mtecConnectModbus:
                 return self.temp_valueBuffer.pop()
     
     def keepAlive(self):
-        print("f: keepAlive")
+        # print("f: keepAlive")
         if callable(self.settings_keepAlive_command):
             command = self.settings_keepAlive_command()
         else:
@@ -58,7 +58,7 @@ class mtecConnectModbus:
     
     def send(self, command):
         self.temp_sendReady = False
-        print("s: " + command)
+        # print("s: " + command)
         #self.serial.write(command.encode())
         self.serial.write(bytes.fromhex(command))
         self.waitForResponse()
@@ -123,7 +123,6 @@ class mtecConnectModbus:
         self.temp_sendReady = True
         return True
         
-        
     def int2hex(self, value, length):
         s = hex(value)[2:]
         while (len(s) < length):
@@ -134,20 +133,20 @@ class mtecConnectModbus:
         buffer = bytearray.fromhex(command)
         crc = 0xFFFF
         for pos in range(len(buffer)):
-            crc ^= buffer[pos];
+            crc ^= buffer[pos]
             for k in range(8):
                 i = 8 - k
                 if ((crc & 0x0001) != 0):
                     crc >>= 1
                     crc ^= 0xA001
                 else:
-                    crc >>= 1;
+                    crc >>= 1
         return self.int2hex((crc % 256) * 256 + math.floor(crc / 256),4)
 
     @property
     def ready(self):
-        switches = self.sendCommand("03FD06", 1);
-        return ((switches % 32) - (switches % 16) != 0);
+        switches = self.sendCommand("03FD06", 1)
+        return ((switches % 32) - (switches % 16) != 0)
     
     @ready.setter
     def ready(self, value):

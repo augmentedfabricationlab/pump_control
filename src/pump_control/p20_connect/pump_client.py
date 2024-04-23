@@ -33,7 +33,7 @@ class PumpClient():
     
     def close(self):
         if hasattr(self, "client"):
-            self.client.close
+            self.client.close()
             self.connected = False
             del self.client
     
