@@ -1,5 +1,5 @@
 from fabrication_manager import Task
-from .pump_client import PumpClient
+from pump_control.p20_connect.pump_client import PumpClient
 import time
 
 class PumpTask(Task):

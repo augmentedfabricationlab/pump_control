@@ -1,15 +1,19 @@
-import sys
+import os, sys
 import threading
 import struct
-import socket
-import serial
-import time
-if sys.version_info[0] == 2:
-    import SocketServer as ss
-elif sys.version_info[0] == 3:
-    import socketserver as ss
 
-from mtecConnectModbus import mtecConnectModbus
+import time
+
+import socketserver as ss
+
+if __name__ == '__main__':
+    src_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../..'))
+    sys.path.insert(0, src_path)
+    src_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '../../../../fabrication_manager/src'))
+    sys.path.insert(0, src_path)
+    print(src_path)
+
+from pump_control.p20_connect.mtecConnectModbus import mtecConnectModbus
 
 MSG_CONNECT = 0
 MSG_STATE = 1
